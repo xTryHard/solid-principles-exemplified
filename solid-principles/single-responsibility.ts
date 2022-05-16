@@ -48,5 +48,35 @@ class RobotChef {
 /*
 Did you see the issue with the previous example?
 
-Besides the ridiculous potential amount of 'ifs' for each dish's recipe, this  
+Besides the ridiculous potential amount of 'ifs' for each dish's recipe, this class has multiple reasons to change: whatever ingredient that changes or is added to a contry's recipe, or if a dish is not available for a country anymore, or if a new dish is added, are only three examples.
+
+But, how can we fix this? 
+
+Let's translate this class into multiple modules that respect SRP (SPLIT!)
 */
+
+/*First, we create an interface (could also work with an abstract class) that contains the to-implement methods of the dishes. This will only change when we want to update the available dishes within the robot*/
+interface IRobotChef {
+  cookPizza(): any;
+  cookPasta(): any;
+  cookRisotto(): any;
+}
+
+/*Now, we would need to create on-demand classes that implement this interface, based on the countries considered for the robot chef. In this way, each implementation will change based on its own requirements (updating the ingredients of the dish, for example) without interfeering with the others*/
+
+/*Let's implement IRobotChef!*/
+class ItalianRobotChef implements IRobotChef {
+  cookPizza() {
+    console.log("Pizza Dough + Tomato Sauce + Mozzarella Cheese + Pesto");
+  }
+  cookPasta() {
+    console.log(
+      "Pasta + Kalamata olives + Garlic + Extra virgin olive oil + Parmesan cheese"
+    );
+  }
+  cookRisotto() {
+    console.log(
+      "Arborio rice + Chicken broth + Chopped onion + White wine + Lemon juice + Parmesa cheese + Chopped basil"
+    );
+  }
+}
